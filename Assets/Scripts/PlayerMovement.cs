@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using MultiFps.Network;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerMovement : MonoBehaviourPunCallbacks
+public class PlayerMovement : MonoBehaviourPunCallbacks, IDamageable
 {
     public static PlayerMovement Instance;
+    private PlayerManager playerManager;
     
     float playerHeight = 2f;
+    const float health = 100;
+    private float currentHealth;
     
     [SerializeField] Transform orientation;
 
@@ -63,8 +69,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
         pv = GetComponent<PhotonView>();
         Instance = this;
+        
     }
 
     private bool OnSlope()
@@ -156,6 +164,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 EquipItem(itemIndex + 1);    
             }
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            item[itemIndex].Use();
+        }
     }
     
     void MyInput()
@@ -238,9 +251,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void EquipItem(int _index)
     {
+        if (_index == previusItemIndex) return;
         itemIndex = _index;
-        
-        
+
         if (switchGun)
         { 
             item[itemIndex].itemGameObject.SetActive(true);
@@ -273,5 +286,30 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             EquipItem((int)changedProps["itemIndex"]);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        pv.RPC("RPC_TakeDamage",RpcTarget.All,damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+        print(damage);
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        StartCoroutine(playerManager.Die());
     }
 }
