@@ -1,10 +1,13 @@
-﻿using Photon.Pun;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public static PlayerMovement Instance;
     
@@ -12,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] Transform orientation;
 
+    [Header("Gun")] 
+    [SerializeField] private Item[] item;
+
+    private int itemIndex;
+    private int previusItemIndex = -1;
+    
+    
     [Header("Movement")]
     [SerializeField] float moveSpeed = 6f;
     [SerializeField] float airMultiplier = 0.4f;
@@ -41,20 +51,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] float groundDistance = 0.2f;
     public bool isGrounded { get; private set; }
-    public bool isGrapling;
+    [HideInInspector] public bool isGrapling;
+    [HideInInspector] public bool switchGun;
+    [HideInInspector] public bool TakeGun;
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
-
+    private PhotonView pv;
     Rigidbody rb;
 
     RaycastHit slopeHit;
 
-    [SerializeField] private PhotonView PV;
-
     private void Awake()
     {
+        pv = GetComponent<PhotonView>();
         Instance = this;
-        PV = GetComponent<PhotonView>();
     }
 
     private bool OnSlope()
@@ -77,24 +87,28 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        if (!PV.IsMine)
+        
+        if (pv.IsMine)
         {
-            foreach (Camera item in GetComponentsInChildren<Camera>())
-            {
-                Destroy(item.gameObject);
-            }
+            switchGun = true;
+            EquipItem(0);
+        }
+        else
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
         }
+        
     }
 
     private void Update()
     {
-        if (!PV.IsMine)
+        if (!pv.IsMine)
         {
             return;
         }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
         MyInput();
         ControlDrag();
         ControlSpeed();
@@ -105,8 +119,45 @@ public class PlayerMovement : MonoBehaviour
         }
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-    }
 
+        for (int i = 0; i < item.Length; i++)
+        {
+            if (Input.GetKeyDown((i + 1).ToString()))
+            {
+                switchGun = true;
+                EquipItem(i);
+                break;
+            }
+        }
+
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        {
+            if (itemIndex >= item.Length -1)
+            {
+                switchGun = true;
+                EquipItem(0);
+            }
+            else
+            {
+                switchGun = true;
+                EquipItem(itemIndex + 1);    
+            }
+        }
+        else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            if (itemIndex <= item.Length -1)
+            {
+                switchGun = true;
+                EquipItem(0);
+            }
+            else
+            {
+                switchGun = true;
+                EquipItem(itemIndex + 1);    
+            }
+        }
+    }
+    
     void MyInput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -150,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!PV.IsMine)
+        if (!pv.IsMine)
         {
             return;
         }
@@ -182,6 +233,45 @@ public class PlayerMovement : MonoBehaviour
         else if (isGrapling && !isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        }
+    }
+
+    void EquipItem(int _index)
+    {
+        itemIndex = _index;
+        
+        
+        if (switchGun)
+        { 
+            item[itemIndex].itemGameObject.SetActive(true);
+            item[itemIndex].itemGameObject.GetComponent<Animator>().Play("Take");
+            switchGun = false;
+            TakeGun = true;
+        }
+
+        if (previusItemIndex != -1)
+        {
+            if (TakeGun)
+            {
+                item[previusItemIndex].itemGameObject.SetActive(false);
+                TakeGun = false;
+            }
+        }
+
+        previusItemIndex = itemIndex;
+        if (pv.IsMine)
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("itemIndex",itemIndex);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (!pv.IsMine && targetPlayer == pv.Owner)
+        {
+            EquipItem((int)changedProps["itemIndex"]);
         }
     }
 }
