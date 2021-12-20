@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +49,12 @@ public class PlayerMovement : MonoBehaviour
 
     RaycastHit slopeHit;
 
+    [SerializeField] private PhotonView PV;
+
     private void Awake()
     {
         Instance = this;
+        PV = GetComponent<PhotonView>();
     }
 
     private bool OnSlope()
@@ -73,12 +77,24 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        if (!PV.IsMine)
+        {
+            foreach (Camera item in GetComponentsInChildren<Camera>())
+            {
+                Destroy(item.gameObject);
+            }
+            Destroy(rb);
+        }
     }
 
     private void Update()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
         MyInput();
         ControlDrag();
         ControlSpeed();
@@ -134,6 +150,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
         MovePlayer();
         if (isGrapling)
         {

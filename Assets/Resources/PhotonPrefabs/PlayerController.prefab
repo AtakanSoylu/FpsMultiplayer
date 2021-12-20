@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 5495333004393429215}
   - component: {fileID: 5495333004393429214}
   - component: {fileID: 4842113402476040072}
+  - component: {fileID: -5463626206512698993}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
     m_Bits: 256
   groundDistance: 0.1
   isGrapling: 0
+  PV: {fileID: 0}
 --- !u!114 &5495333004393429215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +206,7 @@ MonoBehaviour:
   orientation: {fileID: 5495333005741003056}
   sensX: 50
   sensY: 50
+  PV: {fileID: 0}
 --- !u!114 &5495333004393429214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +230,7 @@ MonoBehaviour:
   wallRunfovTime: 10
   camTilt: 10
   camTiltTime: 10
+  PV: {fileID: 0}
 --- !u!114 &4842113402476040072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +253,22 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-5463626206512698993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495333004393429187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5495333004411781206
 GameObject:
   m_ObjectHideFlags: 0

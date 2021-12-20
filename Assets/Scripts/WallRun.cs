@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +34,8 @@ public class WallRun : MonoBehaviour
 
     private Rigidbody rb;
 
+    [SerializeField] private PhotonView PV;
+
     bool CanWallRun()
     {
         return !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight);
@@ -41,6 +44,7 @@ public class WallRun : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
     }
 
     void CheckWall()
@@ -51,6 +55,10 @@ public class WallRun : MonoBehaviour
 
     private void Update()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
         CheckWall();
 
         if (CanWallRun())
