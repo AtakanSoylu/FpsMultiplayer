@@ -762,7 +762,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90623549d4482f042ade35d8a0758e35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -788,7 +788,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.3
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -856,7 +856,7 @@ MonoBehaviour:
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 512
-  gunTip: {fileID: 5461143678347768032}
+  gunTip: {fileID: 5495333005646134093}
   camera: {fileID: 5495333005777838734}
   player: {fileID: 5495333004393429186}
 --- !u!1 &5495333005741003057
