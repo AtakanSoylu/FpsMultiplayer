@@ -6,6 +6,9 @@
     <e p="C:\Users\eqeme\Documents\GitHub\FpsMultiplayer" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Fantasy Skybox FREE" t="Include">
+          <e p="Readme.txt" t="Include" />
+        </e>
         <e p="Low Poly FPS Pack" t="Include">
           <e p="Components" t="Include">
             <e p="Demo_Scene_Components" t="Include">
@@ -68,15 +71,12 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="Player" t="Include">
-            <e p="GraplingGun.cs" t="Include" />
-            <e p="MouseLook.cs" t="Include" />
-            <e p="PlayerController.cs" t="Include" />
-            <e p="Weapon" t="Include">
-              <e p="BuleltController.cs" t="Include" />
-              <e p="WeaponController.cs" t="Include" />
-            </e>
-          </e>
+          <e p="GraplingGun.cs" t="Include" />
+          <e p="MoveCamera.cs" t="Include" />
+          <e p="PlayerLook.cs" t="Include" />
+          <e p="PlayerMovement.cs" t="Include" />
+          <e p="WallRun.cs" t="Include" />
+          <e p="WeaponSway.cs" t="Include" />
         </e>
       </e>
       <e p="FpsMultiplayer.sln" t="IncludeFlat" />
