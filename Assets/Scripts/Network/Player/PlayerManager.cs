@@ -26,8 +26,8 @@ namespace MultiFps.Network
         }
         public void CreateController()
         {
-            Debug.Log("Instantiated Player Controller");
-            contoller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"),Vector3.zero,Quaternion.identity,0,new object[]{PV.ViewID});
+            Transform spawnPoint = SpawnManager.Instance.GetSpawnPoint();
+            contoller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), spawnPoint.position, spawnPoint.rotation,0,new object[]{PV.ViewID});
             
         }
         

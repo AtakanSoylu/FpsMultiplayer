@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
@@ -22,7 +23,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     private int itemIndex;
     private int previusItemIndex = -1;
-    
+
+    [Header("Health")]
+    [SerializeField] private GameObject _healthUI;
+    [SerializeField] private TMP_Text _healthText;
     const float health = 100;
     private float currentHealth;
     
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
+            Destroy(_healthUI);
         }
         
     }
@@ -300,8 +305,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             return;
         }
-        print(damage);
         currentHealth -= damage;
+        _healthText.text = "Health = " + (int)currentHealth;
         if (currentHealth <= 0)
         {
             Die();
