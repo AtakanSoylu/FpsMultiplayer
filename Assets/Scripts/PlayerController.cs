@@ -8,9 +8,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerMovement : MonoBehaviourPunCallbacks, IDamageable
+public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
-    public static PlayerMovement Instance;
+    public static PlayerController Instance;
     
     float playerHeight = 2f;
     private PlayerManager playerManager;
@@ -68,9 +68,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks, IDamageable
 
     private void Awake()
     {
-        playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
-        pv = GetComponent<PhotonView>();
         Instance = this;
+        pv = GetComponent<PhotonView>();
+        playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     private bool OnSlope()

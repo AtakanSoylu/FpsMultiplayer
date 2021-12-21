@@ -6,7 +6,7 @@ public class GunSwitchControl : MonoBehaviour
 {
     public void SwitchGunTrigger()
     {
-        PlayerMovement.Instance.switchGun = true;
+        PlayerController.Instance.switchGun = true;
     }
 
 }

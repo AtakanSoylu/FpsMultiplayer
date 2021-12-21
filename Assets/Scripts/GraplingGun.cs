@@ -42,7 +42,7 @@ public class GraplingGun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.position, camera.forward, out hit, maxDistance, whatIsGrappleable))
         {
-            PlayerMovement.Instance.isGrapling = true;
+            PlayerController.Instance.isGrapling = true;
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -70,7 +70,7 @@ public class GraplingGun : MonoBehaviour
     /// </summary>
     void StopGrapple()
     {
-        PlayerMovement.Instance.isGrapling = false;
+        PlayerController.Instance.isGrapling = false;
         lr.positionCount = 0;
         Destroy(joint);
     }
