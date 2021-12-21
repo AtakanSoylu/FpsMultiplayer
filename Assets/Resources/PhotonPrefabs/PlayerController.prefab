@@ -1972,8 +1972,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 5495333005741003056}
   item:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2049271638426690437}
+  - {fileID: 3334915422808956905}
   moveSpeed: 6
   airMultiplier: 0.4
   walkSpeed: 4
