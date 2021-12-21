@@ -1918,7 +1918,7 @@ GameObject:
   - component: {fileID: 5398395800900089882}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   _camera: {fileID: 5495333005777838731}
   himself:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!114 &6512478033511884115
 MonoBehaviour:
   m_ObjectHideFlags: 0
