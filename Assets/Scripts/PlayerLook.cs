@@ -8,6 +8,8 @@ public class PlayerLook : MonoBehaviour
     [Header("References")] 
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private Transform orientation;
+    [SerializeField] private Transform characterModel;
+    [SerializeField] private Transform characterSpine;
 
     [Header("Look Settings")]
     [SerializeField] private float sensX;
@@ -38,7 +40,8 @@ public class PlayerLook : MonoBehaviour
         xRotation -= mouseY * sensY;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
+        characterSpine.rotation = Quaternion.Euler(xRotation,0,0);
+        characterModel.rotation = Quaternion.Euler(0,yRotation,0);
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         cameraHolder.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
 

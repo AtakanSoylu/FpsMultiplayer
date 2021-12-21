@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     Vector3 slopeMoveDirection;
     private PhotonView pv;
     Rigidbody rb;
-
+    public Animator _animator;
     RaycastHit slopeHit;
 
     private void Awake()
@@ -103,6 +103,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        _animator.SetFloat("Horizontal",horizontalMovement);
+        _animator.SetFloat("Vertical",verticalMovement);
         if (!pv.IsMine)
         {
             return;

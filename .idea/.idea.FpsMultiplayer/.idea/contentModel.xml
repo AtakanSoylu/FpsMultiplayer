@@ -443,6 +443,7 @@
           <e p="GraplingGun.cs" t="Include" />
           <e p="GunInfo.cs" t="Include" />
           <e p="GunSwitchControl.cs" t="Include" />
+          <e p="IgnoreYourself.cs" t="Include" />
           <e p="Item.cs" t="Include" />
           <e p="ItemInfo.cs" t="Include" />
           <e p="MoveCamera.cs" t="Include" />
