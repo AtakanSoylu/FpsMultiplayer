@@ -10,8 +10,7 @@ namespace MultiFps.Network
     {
 
         PhotonView PV;
-        private GameObject contoller;
-        
+
         private void Awake()
         {
             PV = GetComponent<PhotonView>();
@@ -27,15 +26,7 @@ namespace MultiFps.Network
         public void CreateController()
         {
             Debug.Log("Instantiated Player Controller");
-            contoller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"),Vector3.zero,Quaternion.identity,0,new object[]{PV.ViewID});
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"),Vector3.zero,Quaternion.identity);
         }
-        public IEnumerator Die()
-        {
-            PhotonNetwork.Destroy(contoller);
-            yield return new WaitForSeconds(1);
-            CreateController();
-        }
-        
     }
-    
 }

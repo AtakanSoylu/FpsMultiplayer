@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class ItemInfo : ScriptableObject
 {
-    public string itemName;
-    public float damage;
+    public string name;
 }
