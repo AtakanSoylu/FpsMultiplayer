@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   name: Assault
+  itemName: Rifle
+  damage: 30

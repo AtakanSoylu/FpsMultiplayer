@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MultiFps.Network;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerMovement : MonoBehaviourPunCallbacks
+public class PlayerMovement : MonoBehaviourPunCallbacks, IDamageable
 {
     public static PlayerMovement Instance;
     
     float playerHeight = 2f;
+    private PlayerManager playerManager;
     
     [SerializeField] Transform orientation;
 
@@ -20,6 +22,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private int itemIndex;
     private int previusItemIndex = -1;
+    
+    const float health = 100;
+    private float currentHealth;
     
     
     [Header("Movement")]
@@ -63,6 +68,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
         pv = GetComponent<PhotonView>();
         Instance = this;
     }
@@ -79,6 +85,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             {
                 return false;
             }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            item[itemIndex].Use();
         }
         return false;
     }
@@ -240,6 +250,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void EquipItem(int _index)
     {
+        if (_index == previusItemIndex) return;
         itemIndex = _index;
         
         
@@ -276,4 +287,31 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             EquipItem((int)changedProps["itemIndex"]);
         }
     }
+    
+    public void TakeDamage(float damage)
+    {
+        pv.RPC("RPC_TakeDamage",RpcTarget.All,damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+        print(damage);
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        StartCoroutine(playerManager.Die());
+    }
+    
+    
 }
