@@ -86,10 +86,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 return false;
             }
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            item[itemIndex].Use();
-        }
         return false;
     }
 
@@ -167,6 +163,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 switchGun = true;
                 EquipItem(itemIndex + 1);    
             }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            item[itemIndex].Use();
         }
     }
     

@@ -6,4 +6,8 @@ public abstract class Gun : Item
 {
     public abstract override void Use();
 
+    public GameObject bulletImpact;
+    public GameObject shootParticle;
+    public Transform gunShootPoint;
+
 }
