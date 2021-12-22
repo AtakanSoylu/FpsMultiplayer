@@ -1637,6 +1637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 841349045200808064}
   - component: {fileID: 3334915422808956905}
+  - component: {fileID: 2060025158822046173}
   m_Layer: 0
   m_Name: Gun2
   m_TagString: Untagged
@@ -1678,6 +1679,28 @@ MonoBehaviour:
   shootParticle: {fileID: 195376, guid: 346f3bf3686d682498113714ee132099, type: 3}
   gunShootPoint: {fileID: 4454964631666965009}
   _camera: {fileID: 5495333005777838731}
+--- !u!114 &2060025158822046173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161460249452707410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4237291543707055705
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299651187710798002}
   - component: {fileID: 2049271638426690437}
+  - component: {fileID: 1937633472128283565}
   m_Layer: 0
   m_Name: Gun1
   m_TagString: Untagged
@@ -2062,6 +2086,28 @@ MonoBehaviour:
   shootParticle: {fileID: 195376, guid: 346f3bf3686d682498113714ee132099, type: 3}
   gunShootPoint: {fileID: 3102254276863533030}
   _camera: {fileID: 5495333005777838731}
+--- !u!114 &1937633472128283565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625065581184088302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4642402408198879585
 GameObject:
   m_ObjectHideFlags: 0

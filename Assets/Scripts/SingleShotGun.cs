@@ -26,18 +26,18 @@ public class SingleShotGun : Gun
     {
         print("Shoot");
         Instantiate(shootParticle,gunShootPoint.position, gunShootPoint.rotation,transform);
-        Destroy(shootParticle,2);
+        //Destroy(shootParticle,2);
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = _camera.transform.position;
         if (Physics.Raycast(ray,out RaycastHit hit))
         {
             hit.collider.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)ItemInfo).damage);
-            pv.RPC("RPC_Shoot",RpcTarget.All,hit.point,hit.normal,hit.transform);
+            pv.RPC("RPC_Shoot",RpcTarget.All,hit.point,hit.normal);
         }
     }
 
     [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal,Transform hitTransform)
+    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal)
     {
         Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
         if (colliders.Length != 0)
